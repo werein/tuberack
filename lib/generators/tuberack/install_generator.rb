@@ -3,27 +3,37 @@ module Tuberack
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path("../../templates", __FILE__)
 
-      desc "Implement CodeClimate test reporter"
-      def codeclimate_test_help
+      desc "Implement Coveralls test reporter"
+      def coveralls_test_help
         prepend_file 'test/test_helper.rb' do
           <<-EOH
-# Uncomment while using CodeClimate, don't forget set token
-# require 'codeclimate-test-reporter'
-# CodeClimate::TestReporter.start
+
+Coveralls.wear!
+# Coveralls.wear!('rails') # For RailsApp
 
           EOH
         end
       end
 
-      desc "Implement Coveralls test reporter"
-      def coveralls_test_help
+      desc "Implement Code Climate test reporter"
+      def codeclimate_test_help
         prepend_file 'test/test_helper.rb' do
           <<-EOH
-# Uncomment while using Coveralls
-# require 'coveralls'
-# Coveralls.wear!
-# Coveralls.wear!('rails') # For RailsApp
 
+# Don't forget set token
+CodeClimate::TestReporter.start
+          EOH
+        end
+      end
+
+      desc "Coverage tools"
+      def coverage_requirements
+        prepend_file 'test/test_helper.rb' do
+          <<-EOH
+# Keep it on top, don't change positions
+require 'simplecov'
+require 'coveralls'
+require 'codeclimate-test-reporter'
           EOH
         end
       end
@@ -31,11 +41,6 @@ module Tuberack
       desc "Install Cucumber BDD"
       def generate_cucumber
         generate 'cucumber:install'
-      end
-
-      desc "Install SimpleCov"
-      def copy_simplecov
-        template ".simplecov", ".simplecov"
       end
 
       desc "Implement SimpleCov into Cucumber"
@@ -48,15 +53,11 @@ require 'simplecov'
         end
       end
 
-      desc "Implement SimpleCov into tests"
-      def simplecov_test_help
-        prepend_file 'test/test_helper.rb' do
-          <<-EOH
-require 'simplecov'
-
-          EOH
-        end
+      desc "Install SimpleCov"
+      def copy_simplecov
+        template ".simplecov", ".simplecov"
       end
+
 
       desc "Implement Capybara into tests"
       def capybara_test_help
