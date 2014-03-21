@@ -3,6 +3,19 @@ module Tuberack
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path("../../templates", __FILE__)
 
+      desc "Implement CodeClimate test reporter"
+      def codeclimate_test_help
+        prepend_file 'test/test_helper.rb' do
+          <<-EOH
+# Uncomment while using CodeClimate, don't forget set token
+# require 'codeclimate-test-reporter'
+# CodeClimate::TestReporter.start
+
+          EOH
+        end
+      end
+
+
       desc "Install Cucumber BDD"
       def generate_cucumber
         generate 'cucumber:install'
