@@ -15,6 +15,18 @@ module Tuberack
         end
       end
 
+      desc "Implement Coveralls test reporter"
+      def coveralls_test_help
+        prepend_file 'test/test_helper.rb' do
+          <<-EOH
+# Uncomment while using Coveralls
+# require 'coveralls'
+# Coveralls.wear!
+# Coveralls.wear!('rails') # For RailsApp
+
+          EOH
+        end
+      end
 
       desc "Install Cucumber BDD"
       def generate_cucumber
