@@ -8,8 +8,8 @@ module Tuberack
         prepend_file 'test/test_helper.rb' do
           <<-EOH
 
-Coveralls.wear!
-# Coveralls.wear!('rails') # For RailsApp
+Coveralls.wear! if Coveralls.should_run?
+# Coveralls.wear!('rails') if Coveralls.should_run? # For RailsApp
 
           EOH
         end
