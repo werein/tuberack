@@ -19,3 +19,6 @@ require 'letter_opener'
 
 # Clean database
 require 'database_cleaner'
+
+# Stub Web requests
+require 'webmock/minitest'

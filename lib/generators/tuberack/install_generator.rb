@@ -74,7 +74,7 @@ end
       end
 
       desc "Implement testable into tests"
-      def testable_test_help
+      def tuberack_test_help
         append_file 'test/test_helper.rb' do
           <<-EOH
 
@@ -91,6 +91,15 @@ class ActiveSupport::TestCase
   # Uncomment if are you using Rails engine
   # include MyEngine::Engine.routes.url_helpers
 end
+          EOH
+        end
+      end
+
+      desc "Stube web request"
+      def webmock_test_help        
+        append_file 'test/test_helper.rb' do
+          <<-EOH
+WebMock.disable_net_connect! allow: %w(coveralls.io)
           EOH
         end
       end
