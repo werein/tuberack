@@ -75,11 +75,11 @@ end
 
       desc "Implement testable into tests"
       def tuberack_test_help
+        file = File.read('test/test_helper.rb').sub(/require "rails\/test_help"\n/, "require \"rails\/test_help\"\nrequire 'tuberack'\n")
+        File.write('test/test_helper.rb', file)
+
         append_file 'test/test_helper.rb' do
           <<-EOH
-
-require 'tuberack'
-
 include Tuberack::Helpers
           EOH
         end
