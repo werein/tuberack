@@ -1,6 +1,6 @@
 module Tuberack
-  class DummyUser
-    attr_accessor :roles, :id, :xeditable, :manage
+  class DummyUser < ActiveRecord::Base
+    attr_accessor :roles, :xeditable, :manage
 
     def has_role? role
       roles.split(',').include? role.to_s if roles

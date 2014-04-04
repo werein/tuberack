@@ -20,10 +20,18 @@ module Tuberack
 
     private
       def changes
+        @@current_user = set_user if params[:user]
         current_user.manage = params[:manage] =~ /(true|1)/ ? true : false if params[:manage]
         current_user.xeditable = params[:xeditable] =~ /(true|1)/ ? true : false if params[:xeditable]
         current_user.roles = params[:role] == 'clear' ? nil : params[:role] if params[:role]
-        current_user.id = params[:user_id] == 'clear' ? nil : params[:user_id] if params[:user_id]
+      end
+
+      def set_user
+        if params[:user].to_i == 0
+          nil
+        else
+          DummyUser.find_or_create_by(id: params[:user].to_i) unless current_user.id == params[:user].to_i
+        end
       end
   end
 end
