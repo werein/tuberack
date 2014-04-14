@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '~> 4.0'
   spec.add_dependency 'sqlite3'
   spec.add_dependency 'minitest'
+  spec.add_dependency 'minitest-spec-rails'
   spec.add_dependency 'capybara'
   spec.add_dependency 'mocha'
   spec.add_dependency 'shoulda'

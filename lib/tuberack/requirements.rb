@@ -1,5 +1,5 @@
 # MiniTest for Rails
-require 'minitest/spec'
+require 'minitest-spec-rails'
 require 'minitest/pride'
 
 # Shoulda matchers
