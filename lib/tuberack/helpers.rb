@@ -11,7 +11,7 @@ module Tuberack
       current_user
     end
 
-    def ability
+    def cancan_ability
       @ability = Object.new
       @ability.extend(CanCan::Ability)
       @controller.stubs(:current_user).returns(current_user)
@@ -19,12 +19,12 @@ module Tuberack
     end
 
     def can object
-      ability unless defined? @ability
+      cancan_ability unless defined? @ability
       @ability.can :manage, object
     end
 
     def cannot object
-      ability unless defined? @ability
+      cancan_ability unless defined? @ability
       @ability.cannot :manage, object
     end
   end
