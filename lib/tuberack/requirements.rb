@@ -1,5 +1,8 @@
+# Load generator TestCase
+require 'rails/generators/test_case'
+
 # MiniTest for Rails
-require 'minitest-spec-rails'
+require 'minitest/rails'
 require 'minitest/pride'
 
 # Shoulda matchers

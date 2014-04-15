@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '~> 4.0'
   spec.add_dependency 'sqlite3'
   spec.add_dependency 'minitest'
-  spec.add_dependency 'minitest-spec-rails'
+  spec.add_dependency 'minitest-rails', '~> 2.0.0.beta1'
   spec.add_dependency 'capybara'
   spec.add_dependency 'mocha'
   spec.add_dependency 'shoulda'
@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'webmock'
 
   spec.add_development_dependency 'bundler', '~> 1.5'
+  spec.add_development_dependency 'cells'
 end

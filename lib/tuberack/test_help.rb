@@ -4,7 +4,7 @@ class ActiveSupport::TestCase
 end
 
 Minitest::Spec.register_spec_type(/Cell$/, Cell::TestCase) if defined? Cell
-Minitest::Spec.register_spec_type(/Integration$|Feature$/, ActionDispatch::IntegrationTest)
+Minitest::Spec.register_spec_type(/Feature$/, ActionDispatch::IntegrationTest)
 
 # Integration tests
 class ActionDispatch::IntegrationTest
