@@ -7,6 +7,7 @@ module Tuberack
     def current_user
       @@current_user ||= DummyUser.new
     end
+    helper_method :current_user
 
     def xeditable? object
       current_user.xeditable?
