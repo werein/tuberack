@@ -22,8 +22,8 @@ module Tuberack
     private
       def changes
         @@current_user = set_user if params[:user]
-        current_user.manage = params[:manage] =~ /(true|1)/ ? true : false if params[:manage]
-        current_user.xeditable = params[:xeditable] =~ /(true|1)/ ? true : false if params[:xeditable]
+        current_user.manage = params[:manage] =~ /(true|1|on)/ ? true : false if params[:manage]
+        current_user.xeditable = params[:xeditable] =~ /(true|1|on)/ ? true : false if params[:xeditable]
         current_user.roles = params[:role] == 'clear' ? nil : params[:role] if params[:role]
       end
 
