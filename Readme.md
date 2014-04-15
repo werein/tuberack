@@ -38,3 +38,11 @@ Now you are able to test your application with
 * FactoryGirl
 * LetterOpener
 * Cell tests
+
+# Set app user
+
+You can easily set current user with user ability with cell. Just load it in your view and point current user instance
+
+```ruby
+= render_cell 'tuberack/switcher', :show, current_user
+```
