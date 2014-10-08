@@ -8,8 +8,8 @@ module Tuberack
         prepend_file 'test/test_helper.rb' do
           <<-EOH
 
-Coveralls.wear! if Coveralls.should_run?
-# Coveralls.wear!('rails') if Coveralls.should_run? # For RailsApp
+Coveralls.wear! if Coveralls.should_run? if TUBERACK.include?(:coveralls)
+# Coveralls.wear!('rails') # For RailsApp
 
           EOH
         end
@@ -21,7 +21,7 @@ Coveralls.wear! if Coveralls.should_run?
           <<-EOH
 
 # Don't forget set token
-CodeClimate::TestReporter.start
+CodeClimate::TestReporter.start if TUBERACK.include?(:codeclimate)
           EOH
         end
       end
@@ -31,23 +31,18 @@ CodeClimate::TestReporter.start
         prepend_file 'test/test_helper.rb' do
           <<-EOH
 # Keep it on top, don't change positions
-require 'simplecov'
-require 'coveralls'
-require 'codeclimate-test-reporter'
+require 'tuberack/codeclimate'
+require 'tuberack/simplecov'
+require 'tuberack/coveralls'
           EOH
         end
       end
 
-      desc "Install Cucumber BDD"
-      def generate_cucumber
-        generate 'cucumber:install'
-      end
-
-      desc "Implement SimpleCov into Cucumber"
-      def simplecov_cucumber
-        prepend_file 'features/support/env.rb' do 
+      desc "Enabled services"
+      def enabled_services
+        prepend_file 'test/test_helper.rb' do
           <<-EOH
-require 'simplecov'
+TUBERACK = [ :minitest, :shoulda, :mocha, :cell, :factory_girl, :webmock, :capybara, :simplecov, :codeclimate, :coveralls ]
 
           EOH
         end
@@ -63,11 +58,17 @@ require 'simplecov'
       def capybara_test_help
         append_file 'test/test_helper.rb' do
           <<-EOH
+# Capybara must be required directly 
+if TUBERACK.include?(:capybara)
+  begin
+    require 'capybara/rails'
+  rescue LoadError
+    puts "You must put `gem 'capybara'` into your Gemfile and `bundle install` to use Capybara"
+  end
 
-require 'capybara/rails' # Capybara must be required directly          
-
-class ActionDispatch::IntegrationTest
-  include Capybara::DSL
+  class ActionDispatch::IntegrationTest
+    include Capybara::DSL
+  end
 end
           EOH
         end
@@ -75,7 +76,7 @@ end
 
       desc "Implement testable into tests"
       def tuberack_test_help
-        file = File.read('test/test_helper.rb').sub(/require ("|')rails\/test_help("|')\n/, "require 'rails\/test_help'\nrequire 'tuberack'\n")
+        file = File.read('test/test_helper.rb').sub(/require ("|')rails\/test_help("|')\n/, "require 'rails\/test_help'\nrequire 'tuberack/test_help'\n")
         File.write('test/test_helper.rb', file)
 
         append_file 'test/test_helper.rb' do
@@ -99,7 +100,7 @@ end
       def webmock_test_help        
         append_file 'test/test_helper.rb' do
           <<-EOH
-WebMock.disable_net_connect! allow: %w(coveralls.io)
+WebMock.disable_net_connect! allow: %w(coveralls.io) if TUBERACK.include?(:webmock)
           EOH
         end
       end
