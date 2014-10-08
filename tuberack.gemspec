@@ -5,11 +5,11 @@ require 'tuberack/version'
 Gem::Specification.new do |spec|
   spec.name          = "tuberack"
   spec.version       = Tuberack::VERSION
-  spec.authors       = ["JiriKolarik"]
-  spec.email         = ["jiri.kolarik@imin.cz"]
-  spec.description   = %q{Test your application better}
-  spec.summary       = %q{Test your application with MiniTest::Spec, Cucumber, SimpleCover coverage and more}
-  spec.homepage      = "http://werein.cz"
+  spec.authors       = ["Jiri Kolarik"]
+  spec.email         = ["jiri.kolarik@wereinhq.com"]
+  spec.description   = %q{Tuberack for testing services}
+  spec.summary       = %q{Handle your testing libraries easier}
+  spec.homepage      = "http://wereinhq.com"
   spec.license       = "MIT"
 
   spec.files         = Dir["{lib}/**/*", "License.txt", "Rakefile", "Readme.md"]
@@ -19,20 +19,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '~> 4.0'
   spec.add_dependency 'sqlite3'
-  spec.add_dependency 'minitest'
-  spec.add_dependency 'minitest-rails', '~> 2.0.0.beta1'
-  spec.add_dependency 'capybara'
-  spec.add_dependency 'mocha'
-  spec.add_dependency 'shoulda'
-  spec.add_dependency 'factory_girl_rails'
-  spec.add_dependency 'simplecov'
-  spec.add_dependency 'cucumber-rails'
-  spec.add_dependency 'database_cleaner'
-  spec.add_dependency 'letter_opener'
-  spec.add_dependency 'codeclimate-test-reporter'
-  spec.add_dependency 'coveralls'
-  spec.add_dependency 'webmock'
 
-  spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'cells'
+  spec.add_development_dependency 'minitest-rails'
+  spec.add_development_dependency 'mocha'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'codeclimate-test-reporter'
 end

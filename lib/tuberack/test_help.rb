@@ -1,10 +1,20 @@
-# Default and model tests
-class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+require 'tuberack/dummy_controller'
+require 'tuberack/dummy_user'
+
+if ENV['RAILS_ENV'] == 'test'
+  require 'tuberack/requirements'
+  require 'tuberack/helpers'
 end
 
-Minitest::Spec.register_spec_type(/Cell$/, Cell::TestCase) if defined? Cell
-Minitest::Spec.register_spec_type(/Feature$/, ActionDispatch::IntegrationTest)
+# Default and model tests
+class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods if TUBERACK.include?(:factory_girl)
+end
+
+if TUBERACK.include?(:minitest)
+  Minitest::Spec.register_spec_type(/Cell$/, Cell::TestCase) if TUBERACK.include?(:cell)
+  Minitest::Spec.register_spec_type(/Feature$/, ActionDispatch::IntegrationTest)
+end
 
 # Integration tests
 class ActionDispatch::IntegrationTest
